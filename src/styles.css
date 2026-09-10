@@ -898,6 +898,8 @@ code {
 
 .floating-assistant__panel[hidden] { display: none; }
 
+.floating-assistant__screen { width: 100%; }
+
 .floating-assistant__head {
   display: flex;
   align-items: flex-start;
@@ -967,6 +969,27 @@ code {
   margin-top: 8px;
   color: var(--accent);
   font-size: 0.7rem;
+  text-decoration: underline;
+}
+
+.floating-assistant__policy-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 9px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 5%, var(--bg));
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.floating-assistant__policy-status a {
+  flex: none;
+  color: inherit;
   text-decoration: underline;
 }
 
@@ -1119,6 +1142,10 @@ code {
 .floating-assistant__panel .chat__title:empty { display: none; }
 .floating-assistant__panel .chat__log {
   max-height: clamp(130px, calc(100vh - 480px), 280px);
+}
+
+.floating-assistant__screen--chat .chat__log {
+  max-height: clamp(180px, calc(100vh - 390px), 390px);
 }
 
 .floating-assistant__notice {

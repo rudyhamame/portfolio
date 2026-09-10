@@ -71,71 +71,100 @@ export default function FloatingAssistant() {
         aria-hidden={!open}
         hidden={!open}
       >
-        <div className="floating-assistant__head">
-          <div>
-            <span className="floating-assistant__eyebrow">Portfolio AI</span>
-            <h2>Ask about my work</h2>
-          </div>
-          <button
-            type="button"
-            className="floating-assistant__close"
-            aria-label="Close assistant"
-            onClick={close}
-          >
-            ×
-          </button>
-        </div>
-        <section className="floating-assistant__standard" aria-labelledby="ai-standard-title">
-          <div className="floating-assistant__standard-title" id="ai-standard-title">
-            <span aria-hidden="true">✓</span>
-            Strict, non-biased AI
-          </div>
-          <p className="floating-assistant__standard-intro">
-            Every reply is governed by this visible instruction:
-          </p>
-          <p>{publicAssistantStandard}</p>
-          <a
-            href="https://github.com/rudyhamame/portfolio/blob/main/src/assistantPolicy.js"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Verify the enforced policy on GitHub ↗
-          </a>
-        </section>
         {!projectGoal ? (
-          <form className="floating-assistant__goal-form" onSubmit={startChat}>
-            <label htmlFor="portfolio-project-goal">Project goal (required)</label>
-            <p>
-              Like a chief complaint, this goal becomes the umbrella for the entire chat.
-            </p>
-            <textarea
-              id="portfolio-project-goal"
-              className="floating-assistant__goal-input"
-              value={goalDraft}
-              onChange={(event) => {
-                setGoalDraft(event.target.value)
-                setGoalError('')
-              }}
-              placeholder="Example: I need a secure clinical web app that structures patient evidence without overwriting the source record."
-              minLength={20}
-              maxLength={1200}
-              rows={4}
-              required
-            />
-            {goalError && <p className="floating-assistant__goal-error" role="alert">{goalError}</p>}
-            <div className="floating-assistant__goal-actions">
-              <span>{goalDraft.trim().length}/1200</span>
+          <div className="floating-assistant__screen floating-assistant__screen--prechat">
+            <div className="floating-assistant__head">
+              <div>
+                <span className="floating-assistant__eyebrow">Portfolio AI</span>
+                <h2>Define your project goal</h2>
+              </div>
               <button
-                type="submit"
-                className="btn btn--primary"
-                disabled={goalDraft.trim().length < 20 || goalBusy}
+                type="button"
+                className="floating-assistant__close"
+                aria-label="Close assistant"
+                onClick={close}
               >
-                {goalBusy ? 'Checking goal…' : 'Start goal-directed chat'}
+                ×
               </button>
             </div>
-          </form>
+            <section className="floating-assistant__standard" aria-labelledby="ai-standard-title">
+              <div className="floating-assistant__standard-title" id="ai-standard-title">
+                <span aria-hidden="true">✓</span>
+                Strict, non-biased AI
+              </div>
+              <p className="floating-assistant__standard-intro">
+                Every reply is governed by this visible instruction:
+              </p>
+              <p>{publicAssistantStandard}</p>
+              <a
+                href="https://github.com/rudyhamame/portfolio/blob/main/src/assistantPolicy.js"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Verify the enforced policy on GitHub ↗
+              </a>
+            </section>
+            <form className="floating-assistant__goal-form" onSubmit={startChat}>
+              <label htmlFor="portfolio-project-goal">Project goal (required)</label>
+              <p>
+                Like a chief complaint, this goal becomes the umbrella for the entire chat.
+              </p>
+              <textarea
+                id="portfolio-project-goal"
+                className="floating-assistant__goal-input"
+                value={goalDraft}
+                onChange={(event) => {
+                  setGoalDraft(event.target.value)
+                  setGoalError('')
+                }}
+                placeholder="Example: I need a secure clinical web app that structures patient evidence without overwriting the source record."
+                minLength={20}
+                maxLength={1200}
+                rows={4}
+                required
+              />
+              {goalError && <p className="floating-assistant__goal-error" role="alert">{goalError}</p>}
+              <div className="floating-assistant__goal-actions">
+                <span>{goalDraft.trim().length}/1200</span>
+                <button
+                  type="submit"
+                  className="btn btn--primary"
+                  disabled={goalDraft.trim().length < 20 || goalBusy}
+                >
+                  {goalBusy ? 'Checking goal…' : 'Continue to chat'}
+                </button>
+              </div>
+            </form>
+            <p className="floating-assistant__notice">
+              Portfolio information only—not medical advice or a binding estimate.
+            </p>
+          </div>
         ) : (
-          <>
+          <div className="floating-assistant__screen floating-assistant__screen--chat">
+            <div className="floating-assistant__head">
+              <div>
+                <span className="floating-assistant__eyebrow">Portfolio AI</span>
+                <h2>Goal-directed conversation</h2>
+              </div>
+              <button
+                type="button"
+                className="floating-assistant__close"
+                aria-label="Close assistant"
+                onClick={close}
+              >
+                ×
+              </button>
+            </div>
+            <div className="floating-assistant__policy-status">
+              <span>✓ Strict, non-biased standard active</span>
+              <a
+                href="https://github.com/rudyhamame/portfolio/blob/main/src/assistantPolicy.js"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Verify ↗
+              </a>
+            </div>
             <section className="floating-assistant__active-goal" aria-label="Active project goal">
               <div>
                 <span>Project goal</span>
@@ -161,11 +190,11 @@ export default function FloatingAssistant() {
               projectGoal={projectGoal}
               responseDirection={responseDirection}
             />
-          </>
+            <p className="floating-assistant__notice">
+              Portfolio information only—not medical advice or a binding estimate.
+            </p>
+          </div>
         )}
-        <p className="floating-assistant__notice">
-          Portfolio information only—not medical advice or a binding estimate.
-        </p>
       </section>
 
       <button
