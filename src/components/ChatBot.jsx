@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
+import remarkGfm from 'remark-gfm'
 import { api } from '../lib/api.js'
 
 // Scoped chat. Pass requestId to talk about one project; omit for the general
@@ -63,7 +66,22 @@ export default function ChatBot({ requestId, title = 'Ask the assistant', public
         )}
         {messages.map((m, i) => (
           <div key={i} className={`chat__msg chat__msg--${m.role}`}>
-            {m.content}
+            {m.role === 'assistant' ? (
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm, remarkBreaks]}
+                components={{
+                  a: ({ children, ...props }) => (
+                    <a {...props} target="_blank" rel="noreferrer">
+                      {children}
+                    </a>
+                  ),
+                }}
+              >
+                {m.content}
+              </ReactMarkdown>
+            ) : (
+              m.content
+            )}
           </div>
         ))}
         {busy && <div className="chat__msg chat__msg--assistant chat__msg--typing">…</div>}
