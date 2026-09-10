@@ -10,6 +10,7 @@ export default function ChatBot({
   requestId,
   title = 'Ask the assistant',
   publicMode = false,
+  projectGoal = '',
   responseDirection = 'evidence',
 }) {
   const [messages, setMessages] = useState([])
@@ -45,7 +46,12 @@ export default function ChatBot({
       const { reply } = await api(publicMode ? '/api/assistant' : '/api/chat', {
         method: 'POST',
         body: publicMode
-          ? { message: text, history: messages.slice(-12), responseDirection }
+          ? {
+              message: text,
+              history: messages.slice(-12),
+              projectGoal,
+              responseDirection,
+            }
           : { message: text, requestId },
       })
       setMessages((m) => [...m, { role: 'assistant', content: reply }])

@@ -884,14 +884,17 @@ code {
 .floating-assistant__panel {
   width: min(420px, calc(100vw - 32px));
   max-height: min(680px, calc(100vh - 108px));
-  overflow: hidden;
+  overflow-y: auto;
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 18px;
   background: color-mix(in srgb, var(--bg-elev) 96%, transparent);
   box-shadow: 0 24px 80px rgb(0 0 0 / 58%);
   backdrop-filter: blur(18px);
+  scrollbar-width: none;
 }
+
+.floating-assistant__panel::-webkit-scrollbar { display: none; }
 
 .floating-assistant__panel[hidden] { display: none; }
 
@@ -990,6 +993,96 @@ code {
 .floating-assistant__direction select:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
+}
+
+.floating-assistant__goal-form {
+  display: grid;
+  gap: 8px;
+}
+
+.floating-assistant__goal-form > label {
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.floating-assistant__goal-form > p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.73rem;
+  line-height: 1.45;
+}
+
+.floating-assistant__goal-input {
+  width: 100%;
+  resize: vertical;
+  padding: 10px 11px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--bg);
+  font: inherit;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.floating-assistant__goal-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.floating-assistant__goal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.floating-assistant__goal-actions > span {
+  color: var(--text-dim);
+  font-size: 0.68rem;
+}
+
+.floating-assistant__goal-actions .btn { padding: 9px 13px; }
+
+.floating-assistant__active-goal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 9px 11px;
+  border-left: 3px solid var(--accent);
+  background: var(--bg);
+}
+
+.floating-assistant__active-goal span {
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.floating-assistant__active-goal p {
+  display: -webkit-box;
+  margin: 4px 0 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 0.76rem;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.floating-assistant__active-goal button {
+  padding: 2px 0;
+  border: 0;
+  color: var(--accent);
+  background: transparent;
+  font: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
 }
 
 .floating-assistant__close {

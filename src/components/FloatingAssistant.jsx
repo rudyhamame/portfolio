@@ -5,13 +5,13 @@ import { assistantDirections, publicAssistantStandard } from '../assistantPolicy
 export default function FloatingAssistant() {
   const [open, setOpen] = useState(false)
   const [responseDirection, setResponseDirection] = useState('evidence')
+  const [projectGoal, setProjectGoal] = useState('')
+  const [goalDraft, setGoalDraft] = useState('')
   const panelRef = useRef(null)
   const triggerRef = useRef(null)
 
   useEffect(() => {
     if (!open) return undefined
-
-    panelRef.current?.querySelector('.chat__input')?.focus()
 
     const closeOnEscape = (event) => {
       if (event.key !== 'Escape') return
@@ -23,9 +23,26 @@ export default function FloatingAssistant() {
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [open])
 
+  useEffect(() => {
+    if (!open) return undefined
+    const frame = window.requestAnimationFrame(() => {
+      panelRef.current
+        ?.querySelector('.floating-assistant__goal-input, .chat__input')
+        ?.focus()
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [open, projectGoal])
+
   const close = () => {
     setOpen(false)
     triggerRef.current?.focus()
+  }
+
+  const startChat = (event) => {
+    event.preventDefault()
+    const goal = goalDraft.trim()
+    if (goal.length < 20) return
+    setProjectGoal(goal)
   }
 
   return (
@@ -70,18 +87,63 @@ export default function FloatingAssistant() {
             Verify the enforced policy on GitHub ↗
           </a>
         </section>
-        <label className="floating-assistant__direction">
-          <span>Direct the next non-biased reply</span>
-          <select
-            value={responseDirection}
-            onChange={(event) => setResponseDirection(event.target.value)}
-          >
-            {Object.entries(assistantDirections).map(([value, direction]) => (
-              <option key={value} value={value}>{direction.label}</option>
-            ))}
-          </select>
-        </label>
-        <ChatBot publicMode title="" responseDirection={responseDirection} />
+        {!projectGoal ? (
+          <form className="floating-assistant__goal-form" onSubmit={startChat}>
+            <label htmlFor="portfolio-project-goal">Project goal (required)</label>
+            <p>
+              Like a chief complaint, this goal becomes the umbrella for the entire chat.
+            </p>
+            <textarea
+              id="portfolio-project-goal"
+              className="floating-assistant__goal-input"
+              value={goalDraft}
+              onChange={(event) => setGoalDraft(event.target.value)}
+              placeholder="Example: I need a secure clinical web app that structures patient evidence without overwriting the source record."
+              minLength={20}
+              maxLength={1200}
+              rows={4}
+              required
+            />
+            <div className="floating-assistant__goal-actions">
+              <span>{goalDraft.trim().length}/1200</span>
+              <button
+                type="submit"
+                className="btn btn--primary"
+                disabled={goalDraft.trim().length < 20}
+              >
+                Start goal-directed chat
+              </button>
+            </div>
+          </form>
+        ) : (
+          <>
+            <section className="floating-assistant__active-goal" aria-label="Active project goal">
+              <div>
+                <span>Project goal</span>
+                <p>{projectGoal}</p>
+              </div>
+              <button type="button" onClick={() => setProjectGoal('')}>Change</button>
+            </section>
+            <label className="floating-assistant__direction">
+              <span>Direct the next non-biased reply</span>
+              <select
+                value={responseDirection}
+                onChange={(event) => setResponseDirection(event.target.value)}
+              >
+                {Object.entries(assistantDirections).map(([value, direction]) => (
+                  <option key={value} value={value}>{direction.label}</option>
+                ))}
+              </select>
+            </label>
+            <ChatBot
+              key={projectGoal}
+              publicMode
+              title=""
+              projectGoal={projectGoal}
+              responseDirection={responseDirection}
+            />
+          </>
+        )}
         <p className="floating-assistant__notice">
           Portfolio information only—not medical advice or a binding estimate.
         </p>
