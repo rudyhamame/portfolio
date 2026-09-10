@@ -53,8 +53,14 @@ export default function FloatingAssistant() {
             ×
           </button>
         </div>
-        <details className="floating-assistant__standard" open>
-          <summary>Visible AI answering standard</summary>
+        <section className="floating-assistant__standard" aria-labelledby="ai-standard-title">
+          <div className="floating-assistant__standard-title" id="ai-standard-title">
+            <span aria-hidden="true">✓</span>
+            Strict, non-biased AI
+          </div>
+          <p className="floating-assistant__standard-intro">
+            Every reply is governed by this visible instruction:
+          </p>
           <p>{publicAssistantStandard}</p>
           <a
             href="https://github.com/rudyhamame/portfolio/blob/main/src/assistantPolicy.js"
@@ -63,7 +69,7 @@ export default function FloatingAssistant() {
           >
             Verify the enforced policy on GitHub ↗
           </a>
-        </details>
+        </section>
         <label className="floating-assistant__direction">
           <span>Direct the next reply</span>
           <select
