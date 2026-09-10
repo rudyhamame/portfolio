@@ -1031,6 +1031,13 @@ code {
   outline-offset: 1px;
 }
 
+.floating-assistant__goal-form .floating-assistant__goal-error {
+  margin: 0;
+  color: #f87171;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
 .floating-assistant__goal-actions {
   display: flex;
   align-items: center;

@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import ChatBot from './ChatBot.jsx'
 import { assistantDirections, publicAssistantStandard } from '../assistantPolicy.js'
+import { api } from '../lib/api.js'
 
 export default function FloatingAssistant() {
   const [open, setOpen] = useState(false)
   const [responseDirection, setResponseDirection] = useState('evidence')
   const [projectGoal, setProjectGoal] = useState('')
   const [goalDraft, setGoalDraft] = useState('')
+  const [goalBusy, setGoalBusy] = useState(false)
+  const [goalError, setGoalError] = useState('')
   const panelRef = useRef(null)
   const triggerRef = useRef(null)
 
@@ -38,11 +41,23 @@ export default function FloatingAssistant() {
     triggerRef.current?.focus()
   }
 
-  const startChat = (event) => {
+  const startChat = async (event) => {
     event.preventDefault()
     const goal = goalDraft.trim()
-    if (goal.length < 20) return
-    setProjectGoal(goal)
+    if (goal.length < 20 || goalBusy) return
+    setGoalBusy(true)
+    setGoalError('')
+    try {
+      const result = await api('/api/assistant/goal', {
+        method: 'POST',
+        body: { projectGoal: goal },
+      })
+      setProjectGoal(result.projectGoal)
+    } catch (error) {
+      setGoalError(error.message)
+    } finally {
+      setGoalBusy(false)
+    }
   }
 
   return (
@@ -97,21 +112,25 @@ export default function FloatingAssistant() {
               id="portfolio-project-goal"
               className="floating-assistant__goal-input"
               value={goalDraft}
-              onChange={(event) => setGoalDraft(event.target.value)}
+              onChange={(event) => {
+                setGoalDraft(event.target.value)
+                setGoalError('')
+              }}
               placeholder="Example: I need a secure clinical web app that structures patient evidence without overwriting the source record."
               minLength={20}
               maxLength={1200}
               rows={4}
               required
             />
+            {goalError && <p className="floating-assistant__goal-error" role="alert">{goalError}</p>}
             <div className="floating-assistant__goal-actions">
               <span>{goalDraft.trim().length}/1200</span>
               <button
                 type="submit"
                 className="btn btn--primary"
-                disabled={goalDraft.trim().length < 20}
+                disabled={goalDraft.trim().length < 20 || goalBusy}
               >
-                Start goal-directed chat
+                {goalBusy ? 'Checking goal…' : 'Start goal-directed chat'}
               </button>
             </div>
           </form>

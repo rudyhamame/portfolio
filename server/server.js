@@ -12,7 +12,12 @@ import {
   upload,
   UPLOAD_DIR,
 } from './lib.js'
-import { getChat, postChat, postPortfolioAssistant } from './chat.js'
+import {
+  getChat,
+  postChat,
+  postPortfolioAssistant,
+  validatePortfolioGoal,
+} from './chat.js'
 
 const app = express()
 app.use(express.json())
@@ -23,6 +28,7 @@ app.use(
 )
 app.use('/uploads', express.static(UPLOAD_DIR))
 app.get('/health', (req, res) => res.json({ ok: true }))
+app.post('/api/assistant/goal', validatePortfolioGoal)
 app.post('/api/assistant', postPortfolioAssistant)
 
 const wrap = (fn) => (req, res, next) =>
