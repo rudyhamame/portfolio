@@ -2,19 +2,19 @@ export const publicAssistantStandard = `Use only documented portfolio evidence. 
 
 export const assistantDirections = {
   evidence: {
-    label: 'Evidence review',
+    label: 'Non-biased — Evidence review',
     instruction: 'Organize the answer around documented facts, reasonable interpretations, and unknowns.',
   },
   critical: {
-    label: 'Critical audit',
+    label: 'Non-biased — Critical audit',
     instruction: 'Emphasize limitations, missing evidence, alternative explanations, and claims that cannot be verified.',
   },
   technical: {
-    label: 'Technical analysis',
+    label: 'Non-biased — Technical analysis',
     instruction: 'Focus on architecture, implementation evidence, engineering tradeoffs, and technical limitations.',
   },
   clientFit: {
-    label: 'Client-fit assessment',
+    label: 'Non-biased — Client-fit assessment',
     instruction: 'Assess the documented fit for the visitor’s problem, including relevant experience, gaps, risks, and questions still requiring answers.',
   },
 }

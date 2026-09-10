@@ -71,7 +71,7 @@ export default function FloatingAssistant() {
           </a>
         </section>
         <label className="floating-assistant__direction">
-          <span>Direct the next reply</span>
+          <span>Direct the next non-biased reply</span>
           <select
             value={responseDirection}
             onChange={(event) => setResponseDirection(event.target.value)}
