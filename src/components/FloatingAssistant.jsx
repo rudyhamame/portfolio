@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import ChatBot from './ChatBot.jsx'
+import { assistantDirections, publicAssistantStandard } from '../assistantPolicy.js'
 
 export default function FloatingAssistant() {
   const [open, setOpen] = useState(false)
+  const [responseDirection, setResponseDirection] = useState('evidence')
   const panelRef = useRef(null)
   const triggerRef = useRef(null)
 
@@ -51,7 +53,29 @@ export default function FloatingAssistant() {
             ×
           </button>
         </div>
-        <ChatBot publicMode title="" />
+        <details className="floating-assistant__standard" open>
+          <summary>Visible AI answering standard</summary>
+          <p>{publicAssistantStandard}</p>
+          <a
+            href="https://github.com/rudyhamame/portfolio/blob/main/src/assistantPolicy.js"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Verify the enforced policy on GitHub ↗
+          </a>
+        </details>
+        <label className="floating-assistant__direction">
+          <span>Direct the next reply</span>
+          <select
+            value={responseDirection}
+            onChange={(event) => setResponseDirection(event.target.value)}
+          >
+            {Object.entries(assistantDirections).map(([value, direction]) => (
+              <option key={value} value={value}>{direction.label}</option>
+            ))}
+          </select>
+        </label>
+        <ChatBot publicMode title="" responseDirection={responseDirection} />
         <p className="floating-assistant__notice">
           Portfolio information only—not medical advice or a binding estimate.
         </p>

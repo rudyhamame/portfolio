@@ -6,7 +6,12 @@ import { api } from '../lib/api.js'
 
 // Scoped chat. Pass requestId to talk about one project; omit for the general
 // "scope my idea / ask about services" bot.
-export default function ChatBot({ requestId, title = 'Ask the assistant', publicMode = false }) {
+export default function ChatBot({
+  requestId,
+  title = 'Ask the assistant',
+  publicMode = false,
+  responseDirection = 'evidence',
+}) {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
@@ -40,7 +45,7 @@ export default function ChatBot({ requestId, title = 'Ask the assistant', public
       const { reply } = await api(publicMode ? '/api/assistant' : '/api/chat', {
         method: 'POST',
         body: publicMode
-          ? { message: text, history: messages.slice(-12) }
+          ? { message: text, history: messages.slice(-12), responseDirection }
           : { message: text, requestId },
       })
       setMessages((m) => [...m, { role: 'assistant', content: reply }])

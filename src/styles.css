@@ -916,6 +916,62 @@ code {
   text-transform: uppercase;
 }
 
+.floating-assistant__standard {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 5%, var(--bg));
+}
+
+.floating-assistant__standard summary {
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.floating-assistant__standard p {
+  margin: 8px 0 0;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  line-height: 1.48;
+}
+
+.floating-assistant__standard a {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--accent);
+  font-size: 0.7rem;
+  text-decoration: underline;
+}
+
+.floating-assistant__direction {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+.floating-assistant__direction select {
+  min-width: 0;
+  padding: 7px 28px 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--bg);
+  font: inherit;
+}
+
+.floating-assistant__direction select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 .floating-assistant__close {
   display: grid;
   place-items: center;
@@ -941,7 +997,9 @@ code {
 }
 
 .floating-assistant__panel .chat__title:empty { display: none; }
-.floating-assistant__panel .chat__log { max-height: min(430px, calc(100vh - 300px)); }
+.floating-assistant__panel .chat__log {
+  max-height: clamp(130px, calc(100vh - 480px), 280px);
+}
 
 .floating-assistant__notice {
   margin: 10px 0 0;
@@ -967,7 +1025,9 @@ code {
     padding: 0 17px;
   }
 
-  .floating-assistant__panel .chat__log { max-height: calc(100vh - 290px); }
+  .floating-assistant__panel .chat__log {
+    max-height: clamp(110px, calc(100vh - 460px), 250px);
+  }
 }
 
 /* Touchscreens can keep :hover active after a tap. Restore the resting styles

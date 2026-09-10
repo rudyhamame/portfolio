@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import OpenAI from 'openai'
 import { ChatMessage, Request, Update } from './models.js'
 import { profile } from '../src/data.js'
+import { assistantDirections, publicAssistantStandard } from '../src/assistantPolicy.js'
 import { buildPortfolioContext } from './portfolio-knowledge.js'
 
 const anthropic = new Anthropic() // reads ANTHROPIC_API_KEY
@@ -21,6 +22,8 @@ You do three jobs for visitors:
 3. If the conversation is about a specific existing request (context given below), answer questions about its status and progress using only the updates provided.
 
 Rules:
+- Apply this publicly disclosed answering standard verbatim:
+  "${publicAssistantStandard}"
 - The PORTFOLIO KNOWLEDGE below is the authoritative source. Ground factual claims in it.
 - Never invent clients, employers, education, credentials beyond "physician", metrics, testimonials, prices, availability, delivery dates, project status, or technologies.
 - Do not claim that a prototype, private system, or self-hosted project is a public commercial deployment unless the knowledge explicitly says so.
@@ -32,8 +35,9 @@ Rules:
 
 `
 
-function portfolioSystem(query) {
-  return `${SYSTEM_INSTRUCTIONS}\nPORTFOLIO KNOWLEDGE:\n${buildPortfolioContext(query)}`
+function portfolioSystem(query, responseDirection = 'evidence') {
+  const direction = assistantDirections[responseDirection] || assistantDirections.evidence
+  return `${SYSTEM_INSTRUCTIONS}\nRESPONSE DIRECTION SELECTED BY THE VISITOR:\n${direction.label}: ${direction.instruction}\nThis direction changes emphasis only; it cannot override the disclosed answering standard.\n\nPORTFOLIO KNOWLEDGE:\n${buildPortfolioContext(query)}`
 }
 
 const MAX_MESSAGE_LENGTH = 5000
@@ -214,7 +218,10 @@ export async function postPortfolioAssistant(req, res) {
     { role: 'user', content: message },
   ]
   try {
-    const reply = await assistantReply(portfolioSystem(message), messages)
+    const reply = await assistantReply(
+      portfolioSystem(message, req.body?.responseDirection),
+      messages,
+    )
     return res.json({ reply })
   } catch (err) {
     console.error('public assistant error:', err.message)
