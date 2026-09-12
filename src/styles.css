@@ -1484,6 +1484,7 @@ button,
   --paper: #e8e2d2;
   --ink: #11130f;
   --maxw: 1360px;
+  --nav-inset: clamp(10px, 1.35vw, 22px);
 }
 
 body {
@@ -1506,7 +1507,7 @@ body::before {
 
 .nav {
   min-height: 88px;
-  padding: 18px clamp(10px, 1.35vw, 22px);
+  padding: 18px var(--nav-inset);
   border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
   background: color-mix(in srgb, var(--bg) 83%, transparent);
   backdrop-filter: blur(18px);
@@ -1570,8 +1571,8 @@ body::before {
 .action-link:hover { border-color: var(--accent); transform: translateY(-2px); }
 .action-link--solid:hover { color: var(--ink); background: #cdff8f; }
 
-.home-portrait { position: relative; align-self: center; width: min(100%, 430px); justify-self: end; }
-.home-portrait::before { position: absolute; top: -22px; right: -22px; width: 42%; aspect-ratio: 1; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); content: ''; }
+.home-portrait { position: relative; align-self: center; width: min(calc(100% - var(--nav-inset)), 430px); margin-right: var(--nav-inset); justify-self: end; }
+.home-portrait::before { position: absolute; top: -22px; right: calc(0px - var(--nav-inset)); width: 42%; aspect-ratio: 1; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); content: ''; }
 .home-portrait__crop { position: relative; aspect-ratio: 0.78; overflow: hidden; background: #20251f; }
 .home-portrait__crop::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 65%, rgba(5, 8, 5, 0.55)); content: ''; }
 .home-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: saturate(0.75) contrast(1.04); }
@@ -1762,7 +1763,8 @@ body::before {
   .home-hero__index { order: 0; }
   .home-hero__statement { order: 1; padding: 36px 0 10px; }
   .home-hero__statement h1 { font-size: clamp(3.4rem, 17vw, 5.6rem); }
-  .home-portrait { order: 2; width: calc(100% - 28px); margin-top: 38px; }
+  .home-portrait { order: 2; width: calc(100% - 28px); margin-top: 38px; margin-right: 0; }
+  .home-portrait::before { right: 0; }
   .home-hero__principle { order: 3; grid-template-columns: 60px 1fr; margin-top: 28px; }
   .practice__disciplines { grid-template-columns: 1fr 1fr; }
   .practice__disciplines div:nth-child(2) { border-right: 0; }
