@@ -1,115 +1,134 @@
-import { Navigate, NavLink, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, Navigate, NavLink, useParams } from 'react-router-dom'
 import { projectCaseStudies } from '../projectCaseStudies.js'
 import AndroidEmulator from '../components/AndroidEmulator.jsx'
 
 const { tabs } = projectCaseStudies
 
-function AuditHeader({ tab }) {
-  return (
-    <header className={`project-audit__hero${tab.featured ? ' project-audit__hero--featured' : ''}`}>
-      <div className="project-audit__hero-copy">
-        <p className="project-audit__category">{tab.category}</p>
-        <h2 className="project-audit__heading">{tab.heading}</h2>
-        <p className="project-audit__tagline">{tab.tagline}</p>
-        <p className="project-audit__summary">{tab.summary}</p>
-      </div>
+function Arrow() {
+  return <span aria-hidden="true">↗</span>
+}
 
-      <aside className="project-audit__thesis" aria-label="Project thesis">
-        <span>Product thesis</span>
-        <p>{tab.thesis}</p>
-      </aside>
+function OntologyPanel({ tab }) {
+  return (
+    <section className="ontology" aria-labelledby={`${tab.id}-ontology-title`}>
+      <div className="ontology__legend">
+        <span>Ontological model / 01</span>
+        <p id={`${tab.id}-ontology-title`}>What exists in this system?</p>
+      </div>
+      <div className="ontology__field">
+        <div className="ontology__orbit" aria-hidden="true" />
+        <div className="ontology__core">
+          <span>ESSENCE</span>
+          <strong>{tab.ontology.essence}</strong>
+        </div>
+        {tab.ontology.entities.map((entity, index) => (
+          <div className={`ontology__entity ontology__entity--${index + 1}`} key={entity}>
+            <span>E{index + 1}</span>
+            <strong>{entity}</strong>
+          </div>
+        ))}
+      </div>
+      <p className="ontology__relation"><span>RELATION</span>{tab.ontology.relation}</p>
+    </section>
+  )
+}
+
+function CaseHero({ tab }) {
+  return (
+    <header className="case-hero">
+      <div className="case-hero__meta">
+        <span>{tab.index} / 05</span>
+        <span>{tab.category}</span>
+      </div>
+      <div className="case-hero__title">
+        <span aria-hidden="true">{tab.glyph}</span>
+        <h1>{tab.heading}</h1>
+      </div>
+      <div className="case-hero__body">
+        <p className="case-hero__tagline">{tab.tagline}</p>
+        <p className="case-hero__summary">{tab.summary}</p>
+        <a className="action-link action-link--project" href={tab.launchUrl} target="_blank" rel="noopener noreferrer">
+          Open live project <Arrow />
+        </a>
+      </div>
+      <blockquote><span>Product thesis</span>{tab.thesis}</blockquote>
     </header>
   )
 }
 
-function Fact({ label, children }) {
+function Facts({ tab }) {
   return (
-    <div className="project-audit__fact">
-      <dt>{label}</dt>
-      <dd>{children}</dd>
-    </div>
+    <dl className="case-facts">
+      {[
+        ['Role', tab.role],
+        ['For', tab.audience],
+        ['Surfaces', tab.surfaces],
+      ].map(([label, value]) => (
+        <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
+      ))}
+    </dl>
   )
 }
 
-function ProjectAudit({ tab }) {
+function Capabilities({ tab }) {
   return (
-    <article className="project-audit" aria-labelledby={`${tab.id}-heading`}>
-      <AuditHeader tab={tab} />
-
-      <dl className="project-audit__facts" aria-label="Project overview">
-        <Fact label="My role">{tab.role}</Fact>
-        <Fact label="Built for">{tab.audience}</Fact>
-        <Fact label="Product surfaces">{tab.surfaces}</Fact>
-      </dl>
-
-      <section className="project-audit__section" aria-labelledby={`${tab.id}-heading`}>
-        <div className="project-audit__section-head">
-          <span>01</span>
-          <div>
-            <p>Product audit</p>
-            <h3 id={`${tab.id}-heading`}>What the system does</h3>
-          </div>
-        </div>
-        <div className="project-audit__capabilities">
-          {tab.capabilities.map(([title, body], index) => (
-            <article className="project-audit__capability" key={title}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <h4>{title}</h4>
-              <p>{body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="project-audit__section">
-        <div className="project-audit__section-head">
-          <span>02</span>
-          <div>
-            <p>Technical audit</p>
-            <h3>How it is built</h3>
-          </div>
-        </div>
-        <ol className="project-audit__architecture">
-          {tab.architecture.map(([layer, detail]) => (
-            <li key={layer}>
-              <strong>{layer}</strong>
-              <p>{detail}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="project-audit__closing">
-        <div>
-          <p className="project-audit__closing-label">Why it matters</p>
-          <h3>The value beyond the feature list.</h3>
-        </div>
-        <ul>
-          {tab.value.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-
-      <div className="project-audit__tags" aria-label="Technology used">
-        {tab.tags.map((tag) => (
-          <span key={tag}>{tag}</span>
+    <section className="case-section">
+      <header><span>02</span><p>System behavior</p><h2>What it makes possible</h2></header>
+      <div className="case-capabilities">
+        {tab.capabilities.map(([title, body], index) => (
+          <article key={title}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </article>
         ))}
       </div>
+    </section>
+  )
+}
 
-      {tab.android && (
-        <section className="project-audit__demo" aria-labelledby="android-demo-title">
-          <div className="project-audit__section-head">
-            <span>03</span>
-            <div>
-              <p>Live artifact</p>
-              <h3 id="android-demo-title">Open the Android client</h3>
-            </div>
-          </div>
-          <AndroidEmulator android={tab.android} />
-        </section>
-      )}
-    </article>
+function Architecture({ tab }) {
+  return (
+    <section className="case-section case-section--architecture">
+      <header><span>03</span><p>Material form</p><h2>How the idea becomes infrastructure</h2></header>
+      <ol className="case-architecture">
+        {tab.architecture.map(([layer, detail], index) => (
+          <li key={layer}><span>{String(index + 1).padStart(2, '0')}</span><strong>{layer}</strong><p>{detail}</p></li>
+        ))}
+      </ol>
+    </section>
+  )
+}
+
+function Significance({ tab }) {
+  return (
+    <section className="case-significance">
+      <div><span>04 / Significance</span><h2>Why this work matters.</h2></div>
+      <ul>{tab.value.map((item) => <li key={item}>{item}</li>)}</ul>
+    </section>
+  )
+}
+
+function ProjectNav() {
+  return (
+    <nav className="case-nav" aria-label="Project case studies">
+      {tabs.map((tab) => (
+        <NavLink key={tab.id} to={`/projects/${tab.id}`} style={{ '--project-color': tab.color }}>
+          <span>{tab.index}</span><strong>{tab.heading}</strong><i aria-hidden="true">{tab.glyph}</i>
+        </NavLink>
+      ))}
+    </nav>
+  )
+}
+
+function NextProject({ tab }) {
+  const currentIndex = tabs.findIndex((item) => item.id === tab.id)
+  const next = tabs[(currentIndex + 1) % tabs.length]
+  return (
+    <Link className="next-project" to={`/projects/${next.id}`} style={{ '--next-color': next.color }}>
+      <span>Next system / {next.index}</span><strong>{next.heading}</strong><i aria-hidden="true">{next.glyph}</i>
+    </Link>
   )
 }
 
@@ -117,42 +136,56 @@ export default function ProjectsPage() {
   const { tab: tabId } = useParams()
   const active = tabs.find((tab) => tab.id === tabId)
 
+  useEffect(() => {
+    if (!active) return
+    const canonicalUrl = `https://portfolio.mctoshs.ca/projects/${active.id}`
+    document.title = `${active.heading} — Rudy Hamame`
+    let canonical = document.querySelector('link[rel="canonical"]')
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.rel = 'canonical'
+      document.head.appendChild(canonical)
+    }
+    canonical.href = canonicalUrl
+    let openGraphUrl = document.querySelector('meta[property="og:url"]')
+    if (!openGraphUrl) {
+      openGraphUrl = document.createElement('meta')
+      openGraphUrl.setAttribute('property', 'og:url')
+      document.head.appendChild(openGraphUrl)
+    }
+    openGraphUrl.content = canonicalUrl
+  }, [active])
+
   if (!active) return <Navigate to={`/projects/${tabs[0].id}`} replace />
 
   return (
-    <section className="section projects-page">
-      <header className="projects-page__intro">
+    <section className="projects-experience" style={{ '--case-color': active.color }}>
+      <div className="projects-experience__intro">
+        <Link to="/" aria-label="Back home">← Index</Link>
         <p>{projectCaseStudies.eyebrow}</p>
-        <h1>{projectCaseStudies.title}</h1>
-        <div>
-          <span>01 — 05</span>
-          <p>{projectCaseStudies.intro}</p>
-        </div>
-      </header>
-
-      <nav className="project-tabs" aria-label="Project case studies">
-        <div className="project-tabs__track">
-          {tabs.map((tab) => (
-            <NavLink
-              key={tab.id}
-              to={`/projects/${tab.id}`}
-              className={({ isActive }) =>
-                `project-tabs__tab${isActive ? ' project-tabs__tab--active' : ''}`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <span>{tab.index}</span>
-                  <strong>{tab.label}</strong>
-                  <i aria-hidden="true">{isActive ? '↓' : '→'}</i>
-                </>
-              )}
-            </NavLink>
-          ))}
-        </div>
-      </nav>
-
-      <ProjectAudit tab={active} />
+        <span>{projectCaseStudies.intro}</span>
+      </div>
+      <ProjectNav />
+      <article className="case-study">
+        <CaseHero tab={active} />
+        <Facts tab={active} />
+        <OntologyPanel tab={active} />
+        <Capabilities tab={active} />
+        <Architecture tab={active} />
+        <Significance tab={active} />
+        <div className="case-tags">{tabTags(active)}</div>
+        {active.android && (
+          <section className="case-demo">
+            <header><span>05</span><p>Live artifact</p><h2>Open the Android client</h2></header>
+            <AndroidEmulator android={active.android} />
+          </section>
+        )}
+        <NextProject tab={active} />
+      </article>
     </section>
   )
+}
+
+function tabTags(tab) {
+  return tab.tags.map((tag) => <span key={tag}>{tag}</span>)
 }

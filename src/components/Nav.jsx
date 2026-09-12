@@ -16,12 +16,11 @@ export default function Nav() {
         <span className="nav__name">{profile.name}</span>
       </Link>
       <nav className="nav__links" aria-label="Main navigation">
-        <a href="/#about">About</a>
-        <a href="/#services">Build</a>
-        <a href="/#method">Method</a>
-        <Link to="/projects">Projects</Link>
+        <a className="nav__optional" href="/#about">Practice</a>
+        <a href="/#projects">Work</a>
+        <a className="nav__optional" href="/#method">Thinking</a>
         <a href="/#contact">Contact</a>
-        <Link to="/portal">Client portal</Link>
+        <Link className="nav__portal" to="/portal">Client portal</Link>
       </nav>
     </header>
   )
