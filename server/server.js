@@ -190,7 +190,7 @@ mongoose
   })
   .then(() => {
     console.log('mongo connected')
-    app.listen(PORT, '127.0.0.1', () => console.log(`api on 127.0.0.1:${PORT}`))
+    app.listen(PORT, '0.0.0.0', () => console.log(`api on 127.0.0.1:${PORT}`))
   })
   .catch((e) => {
     console.error('mongo connection failed:', e.message)
