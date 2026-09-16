@@ -1,18 +1,12 @@
 // Case-study copy derived from the current source trees for each application.
 // Claims intentionally describe shipped scope rather than invented metrics.
-const onPublicMctoshsDomain =
-  typeof window !== 'undefined' &&
-  (window.location.hostname === 'mctoshs.ca' ||
-    window.location.hostname.endsWith('.mctoshs.ca'))
-
-const launchUrl = (publicUrl, localUrl) =>
-  onPublicMctoshsDomain ? publicUrl : localUrl
+const launchUrl = (publicUrl) => publicUrl
 
 export const projectCaseStudies = {
-  eyebrow: 'Five products. Five different problems.',
+  eyebrow: 'Four products. Four different problems.',
   title: 'Selected systems',
   intro:
-    'RabbitHole is the central body of work. The other four projects reveal how the same way of thinking moves between medicine, media, learning, commerce, and human connection.',
+    'RabbitHole is the central body of work. The other three projects reveal how the same way of thinking moves between medicine, media, learning, and commerce.',
   tabs: [
     {
       id: 'rabbithole',
@@ -55,7 +49,7 @@ export const projectCaseStudies = {
       ],
       tags: ['React 19', 'Node.js', 'MongoDB', 'Python', 'LLM pipelines', 'PDF forensics', 'LiveKit', 'Clinical ontology'],
       publicUrl: 'https://mctoshs.ca/',
-      launchUrl: launchUrl('https://mctoshs.ca/', 'https://192.168.68.60:5175/'),
+      launchUrl: launchUrl('https://mctoshs.ca/'),
       featured: true,
     },
     {
@@ -102,53 +96,11 @@ export const projectCaseStudies = {
       launchUrl: launchUrl('https://khalil.mctoshs.ca/', 'https://djkhalilnahhat.onrender.com/'),
     },
     {
-      id: 'long-distance',
-      glyph: '∞',
-      color: '#ff9ecf',
-      label: 'Long Distance',
-      index: '03',
-      category: 'Synchronized emotional interface',
-      heading: 'Long Distance',
-      tagline: 'A private digital ritual for two people, built around one shared moment.',
-      summary:
-        'Long Distance is a paired touch experience for two named participants. Each person opens their own page, places a hand on the screen, and sees the experience respond when both sides are present. It treats connection as an interaction rather than a chat feed.',
-      thesis:
-        'Use the smallest possible gesture—two simultaneous touches—to make distance feel briefly tangible.',
-      ontology: {
-        essence: 'Presence expressed through one shared gesture',
-        entities: ['Person A', 'Touch', 'Person B', 'Shared moment'],
-        relation: 'Two remote states resolve into one event.',
-      },
-      role: 'Interaction concept, visual direction, real-time state design, full-stack engineering',
-      audience: 'Two remote partners using phones or tablets',
-      surfaces: 'Participant selection, touch stage, connection status, shared history',
-      capabilities: [
-        ['Two-sided presence', 'The interface tracks which participant is touching, how many contact points are present, and whether the partner is simultaneously connected.'],
-        ['Moment completion', 'A shared state resolves only when both sides meet the interaction, producing a synchronized visual and audio payoff instead of a conventional notification.'],
-        ['Memory of connection', 'Completed pairing moments are stored in MongoDB and surfaced as a touch history that can be revisited or deliberately cleared.'],
-        ['Device-aware choreography', 'Multi-touch handling, portrait guidance, reduced-motion awareness, audio state, and reconnect-safe polling keep the ritual coherent on touch devices.'],
-      ],
-      architecture: [
-        ['Experience', 'A focused React interface with custom touch, sound, animation, and orientation states'],
-        ['Synchronization', 'Session APIs exchange participant touch state and completion events'],
-        ['Identity', 'A compact authenticated two-user model keeps each side private and explicit'],
-        ['Persistence', 'MongoDB stores session state, audio state, and the history of paired moments'],
-      ],
-      value: [
-        'Demonstrates that emotionally expressive software can be structurally simple.',
-        'Turns presence itself into the product interaction.',
-        'Shows careful mobile input design beyond standard taps, forms, and feeds.',
-      ],
-      tags: ['React', 'Express', 'MongoDB', 'Multi-touch', 'Responsive interaction'],
-      publicUrl: 'https://longdistance.mctoshs.ca/',
-      launchUrl: launchUrl('https://longdistance.mctoshs.ca/', 'http://192.168.68.60:5177/'),
-    },
-    {
       id: 'noga-planner',
       glyph: 'N',
       color: '#65b8ff',
       label: 'Noga Planner',
-      index: '04',
+      index: '03',
       category: 'Adaptive study operating system',
       heading: 'Noga Planner',
       tagline: 'Planning that connects the curriculum, the evidence, and the work actually done.',
@@ -184,14 +136,14 @@ export const projectCaseStudies = {
       ],
       tags: ['React', 'Node.js', 'MongoDB', 'PDF/OCR', 'OpenAI', 'LiveKit', 'FFmpeg', 'Arabic UI'],
       publicUrl: 'https://noga.mctoshs.ca/',
-      launchUrl: launchUrl('https://noga.mctoshs.ca/', 'http://192.168.68.60:5178/'),
+      launchUrl: launchUrl('https://noga.mctoshs.ca/'),
     },
     {
       id: 'rh-iptv',
       glyph: '▻',
       color: '#ffd45e',
       label: 'RH IPTV',
-      index: '05',
+      index: '04',
       category: 'Cross-device streaming platform',
       heading: 'RH IPTV Player',
       tagline: 'One media library, rebuilt for browser, Android, and the living room.',
@@ -227,9 +179,9 @@ export const projectCaseStudies = {
       ],
       tags: ['React', 'Java', 'BrightScript', 'Node.js', 'MongoDB', 'FFmpeg', 'HLS', 'Roku SceneGraph'],
       publicUrl: 'https://iptv.mctoshs.ca/',
-      launchUrl: launchUrl('https://iptv.mctoshs.ca/', 'http://192.168.68.60:5173/'),
+      launchUrl: launchUrl('https://iptv.mctoshs.ca/'),
       android: {
-        liveUrl: 'http://192.168.68.60:8000/#!action=stream&udid=emulator-5554&player=mse&ws=ws%3A%2F%2F192.168.68.60%3A8000%2F%3Faction%3Dproxy-adb%26remote%3Dtcp%3A8886%26udid%3Demulator-5554',
+        liveUrl: '',
         apkUrl: '/downloads/app-debug.apk',
       },
     },

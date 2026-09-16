@@ -1,10 +1,11 @@
 import Anthropic from '@anthropic-ai/sdk'
 import mongoose from 'mongoose'
 import OpenAI from 'openai'
-import { ChatMessage, Request, Update } from './models.js'
+import { AssistantLead, ChatMessage, Request, Update } from './models.js'
 import { profile } from '../src/data.js'
 import { assistantDirections, publicAssistantStandard } from '../src/assistantPolicy.js'
 import { buildPortfolioContext } from './portfolio-knowledge.js'
+import { checkVerificationToken } from './verify.js'
 
 const anthropic = new Anthropic() // reads ANTHROPIC_API_KEY
 const MODEL = process.env.CHAT_MODEL || 'claude-opus-5'
@@ -295,16 +296,20 @@ export async function postPortfolioAssistant(req, res) {
   }
 }
 
-// POST /api/assistant/goal { projectGoal }
+// POST /api/assistant/goal { projectGoal, verificationToken }
 // Checks the required umbrella goal before revealing the public chat interface.
+// Requires a verified name+email (see verify.js) and records the lead.
 export async function validatePortfolioGoal(req, res) {
   const projectGoal = normalizeProjectGoal(req.body?.projectGoal)
+  const verification = checkVerificationToken(req.body?.verificationToken)
+  if (!verification) return res.status(401).json({ error: 'Please verify your email first.' })
   if (goalRequiredResponse(res, projectGoal)) return
   if (!publicRateAllowed(req.ip || req.socket.remoteAddress || 'unknown')) {
     return res.status(429).json({ error: 'Please wait a few minutes before trying another goal.' })
   }
   try {
     if (await rejectIfGoalIsNonsense(res, projectGoal)) return
+    await AssistantLead.create({ name: verification.name, email: verification.email, projectGoal })
     return res.json({ valid: true, projectGoal })
   } catch (err) {
     console.error('project goal validation error:', err.message)

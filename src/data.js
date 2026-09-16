@@ -16,6 +16,16 @@ export const profile = {
   photo: '/profile.png',
 }
 
+export const education = {
+  degree: 'Doctor of Medicine (MD)',
+  faculty: 'Faculty of Medicine',
+  university: 'Latakia University',
+  formerName: 'formerly Tishreen University',
+  location: 'Latakia, Syria',
+  dates: 'September 2013 – December 2025',
+  logo: 'https://al-raaei.com/sites/alraaei-7.dd/files/styles/768_x_550/public/latakia2.jpg?itok=ovBUemWk',
+}
+
 export const about = [
   `I'm a physician and a vibe coder. My clinical training shapes how I
    build: RabbitHole, my main project, is a clinical reasoning model with an
@@ -191,8 +201,8 @@ export const projectsPage = {
         {
           name: 'RH IPTV Library',
           blurb:
-            'Native Java client for the streaming platform — HLS playback, live device sync, self-hosted backend over Tailscale.',
-          tags: ['Java', 'ExoPlayer', 'Tailscale'],
+            'Native Java client for the streaming platform — HLS playback, live device sync, and Cloudflare-hosted service endpoints.',
+          tags: ['Java', 'ExoPlayer', 'Cloudflare'],
           url: '',
           screenshot: '',
         },
@@ -201,8 +211,7 @@ export const projectsPage = {
         // Live ws-scrcpy stream of an Android emulator. Only resolves while
         // ws-scrcpy + the emulator are running on the host serving this site
         // (see README → "Android tab"). Leave '' to show the offline fallback.
-        liveUrl:
-          'http://192.168.68.60:8000/#!action=stream&udid=emulator-5554&player=mse&ws=ws%3A%2F%2F192.168.68.60%3A8000%2F%3Faction%3Dproxy-adb%26remote%3Dtcp%3A8886%26udid%3Demulator-5554',
+        liveUrl: '',
         // Direct download link for the APK (file lives in public/downloads/).
         apkUrl: '/downloads/app-debug.apk',
       },

@@ -56,8 +56,19 @@ const chatMessageSchema = new Schema(
   { timestamps: true },
 )
 
+// Verified visitor who opened the "Ask AI" assistant with a project goal.
+const assistantLeadSchema = new Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, lowercase: true, trim: true, index: true },
+    projectGoal: { type: String, required: true },
+  },
+  { timestamps: true },
+)
+
 export const User = model('User', userSchema)
 export const Request = model('Request', requestSchema)
 export const Update = model('Update', updateSchema)
 export const ChatMessage = model('ChatMessage', chatMessageSchema)
+export const AssistantLead = model('AssistantLead', assistantLeadSchema)
 export const REQUEST_STATUSES = STATUSES

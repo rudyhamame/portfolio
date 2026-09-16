@@ -1,13 +1,8 @@
 import { useEffect } from 'react'
 import { Link, Navigate, NavLink, useParams } from 'react-router-dom'
 import { projectCaseStudies } from '../projectCaseStudies.js'
-import AndroidEmulator from '../components/AndroidEmulator.jsx'
 
 const { tabs } = projectCaseStudies
-
-function Arrow() {
-  return <span aria-hidden="true">↗</span>
-}
 
 function OntologyPanel({ tab }) {
   return (
@@ -48,9 +43,6 @@ function CaseHero({ tab }) {
       <div className="case-hero__body">
         <p className="case-hero__tagline">{tab.tagline}</p>
         <p className="case-hero__summary">{tab.summary}</p>
-        <a className="action-link action-link--project" href={tab.launchUrl} target="_blank" rel="noopener noreferrer">
-          Open live project <Arrow />
-        </a>
       </div>
       <blockquote><span>Product thesis</span>{tab.thesis}</blockquote>
     </header>
@@ -174,12 +166,6 @@ export default function ProjectsPage() {
         <Architecture tab={active} />
         <Significance tab={active} />
         <div className="case-tags">{tabTags(active)}</div>
-        {active.android && (
-          <section className="case-demo">
-            <header><span>05</span><p>Live artifact</p><h2>Open the Android client</h2></header>
-            <AndroidEmulator android={active.android} />
-          </section>
-        )}
         <NextProject tab={active} />
       </article>
     </section>

@@ -10,8 +10,21 @@ export default function FloatingAssistant() {
   const [goalDraft, setGoalDraft] = useState('')
   const [goalBusy, setGoalBusy] = useState(false)
   const [goalError, setGoalError] = useState('')
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [contactBusy, setContactBusy] = useState(false)
+  const [contactError, setContactError] = useState('')
+  const [codeSent, setCodeSent] = useState(false)
+  const [code, setCode] = useState('')
+  const [codeBusy, setCodeBusy] = useState(false)
+  const [codeError, setCodeError] = useState('')
+  const [verificationToken, setVerificationToken] = useState('')
+
   const panelRef = useRef(null)
   const triggerRef = useRef(null)
+
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
 
   useEffect(() => {
     if (!open) return undefined
@@ -41,6 +54,42 @@ export default function FloatingAssistant() {
     triggerRef.current?.focus()
   }
 
+  const sendCode = async (event) => {
+    event.preventDefault()
+    if (!name.trim() || !isValidEmail || contactBusy) return
+    setContactBusy(true)
+    setContactError('')
+    try {
+      await api('/api/assistant/verify/send', {
+        method: 'POST',
+        body: { name: name.trim(), email: email.trim() },
+      })
+      setCodeSent(true)
+    } catch (error) {
+      setContactError(error.message)
+    } finally {
+      setContactBusy(false)
+    }
+  }
+
+  const confirmCode = async (event) => {
+    event.preventDefault()
+    if (code.trim().length !== 6 || codeBusy) return
+    setCodeBusy(true)
+    setCodeError('')
+    try {
+      const result = await api('/api/assistant/verify/confirm', {
+        method: 'POST',
+        body: { email: email.trim(), code: code.trim() },
+      })
+      setVerificationToken(result.verificationToken)
+    } catch (error) {
+      setCodeError(error.message)
+    } finally {
+      setCodeBusy(false)
+    }
+  }
+
   const startChat = async (event) => {
     event.preventDefault()
     const goal = goalDraft.trim()
@@ -50,7 +99,7 @@ export default function FloatingAssistant() {
     try {
       const result = await api('/api/assistant/goal', {
         method: 'POST',
-        body: { projectGoal: goal },
+        body: { projectGoal: goal, verificationToken },
       })
       setProjectGoal(result.projectGoal)
     } catch (error) {
@@ -71,7 +120,107 @@ export default function FloatingAssistant() {
         aria-hidden={!open}
         hidden={!open}
       >
-        {!projectGoal ? (
+        {!verificationToken ? (
+          <div className="floating-assistant__screen floating-assistant__screen--prechat">
+            <div className="floating-assistant__head">
+              <div>
+                <span className="floating-assistant__eyebrow">Portfolio AI</span>
+                <h2>{codeSent ? 'Enter your verification code' : 'Introduce yourself'}</h2>
+              </div>
+              <button
+                type="button"
+                className="floating-assistant__close"
+                aria-label="Close assistant"
+                onClick={close}
+              >
+                ×
+              </button>
+            </div>
+            {!codeSent ? (
+              <form className="floating-assistant__goal-form" onSubmit={sendCode}>
+                <label htmlFor="portfolio-contact-name">Name</label>
+                <input
+                  id="portfolio-contact-name"
+                  className="floating-assistant__goal-input"
+                  value={name}
+                  onChange={(event) => {
+                    setName(event.target.value)
+                    setContactError('')
+                  }}
+                  placeholder="Your name"
+                  maxLength={200}
+                  required
+                />
+                <label htmlFor="portfolio-contact-email">Email address</label>
+                <input
+                  id="portfolio-contact-email"
+                  type="email"
+                  className="floating-assistant__goal-input"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value)
+                    setContactError('')
+                  }}
+                  placeholder="you@example.com"
+                  required
+                />
+                {contactError && <p className="floating-assistant__goal-error" role="alert">{contactError}</p>}
+                <div className="floating-assistant__goal-actions">
+                  <span>A code will be emailed to verify you.</span>
+                  <button
+                    type="submit"
+                    className="btn btn--primary"
+                    disabled={!name.trim() || !isValidEmail || contactBusy}
+                  >
+                    {contactBusy ? 'Sending…' : 'Send code'}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <form className="floating-assistant__goal-form" onSubmit={confirmCode}>
+                <label htmlFor="portfolio-contact-code">6-digit code</label>
+                <p>Sent to {email}.</p>
+                <input
+                  id="portfolio-contact-code"
+                  className="floating-assistant__goal-input"
+                  value={code}
+                  onChange={(event) => {
+                    setCode(event.target.value.replace(/\D/g, '').slice(0, 6))
+                    setCodeError('')
+                  }}
+                  placeholder="123456"
+                  inputMode="numeric"
+                  maxLength={6}
+                  required
+                />
+                {codeError && <p className="floating-assistant__goal-error" role="alert">{codeError}</p>}
+                <div className="floating-assistant__goal-actions">
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() => {
+                      setCodeSent(false)
+                      setCode('')
+                      setCodeError('')
+                    }}
+                  >
+                    Use a different email
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn--primary"
+                    disabled={code.trim().length !== 6 || codeBusy}
+                  >
+                    {codeBusy ? 'Verifying…' : 'Verify'}
+                  </button>
+                </div>
+              </form>
+            )}
+            <p className="floating-assistant__notice">
+              Portfolio information only—not medical advice or a binding estimate.
+            </p>
+          </div>
+        ) : !projectGoal ? (
           <div className="floating-assistant__screen floating-assistant__screen--prechat">
             <div className="floating-assistant__head">
               <div>

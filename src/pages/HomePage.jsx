@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { profile, about, method, skills } from '../data.js'
+import { profile, education, about, method, skills } from '../data.js'
 import { projectCaseStudies } from '../projectCaseStudies.js'
 
 const disciplines = ['Medicine', 'Ontology', 'Product', 'Engineering']
@@ -74,9 +74,9 @@ function Practice() {
 function WorkIndex() {
   return (
     <section id="projects" className="home-section work-index">
-      <header className="home-section__head"><span>02</span><p>Selected systems</p></header>
+      <header className="home-section__head"><span>03</span><p>Selected systems</p></header>
       <div className="work-index__intro">
-        <h2>Five products.<br />One way of seeing.</h2>
+        <h2>Four products.<br />One way of seeing.</h2>
         <p>Each project begins by deciding what exists, how it relates, and what must remain invariant. The interface comes after.</p>
       </div>
       <div className="work-index__list">
@@ -94,10 +94,33 @@ function WorkIndex() {
   )
 }
 
+function Education() {
+  return (
+    <section id="education" className="home-section education">
+      <header className="home-section__head"><span>02</span><p>Medical education</p></header>
+      <article className="education__credential">
+        <div className="education__mark">
+          <img src={education.logo} alt="Latakia University emblem" />
+        </div>
+        <div className="education__identity">
+          <span>Degree / MD</span>
+          <h2>{education.degree}</h2>
+          <p>{education.faculty}</p>
+        </div>
+        <dl className="education__details">
+          <div><dt>Institution</dt><dd>{education.university}<small>({education.formerName})</small></dd></div>
+          <div><dt>Place</dt><dd>{education.location}</dd></div>
+          <div><dt>Period</dt><dd>{education.dates}</dd></div>
+        </dl>
+      </article>
+    </section>
+  )
+}
+
 function Method() {
   return (
     <section id="method" className="home-section reasoning">
-      <header className="home-section__head"><span>03</span><p>How I think</p></header>
+      <header className="home-section__head"><span>04</span><p>How I think</p></header>
       <div className="reasoning__lead"><p>Clinical habits, translated into product architecture.</p><span>Observe → distinguish → model → test</span></div>
       <div className="reasoning__grid">
         {method.map((item, index) => (
@@ -111,7 +134,7 @@ function Method() {
 function FieldNotes() {
   return (
     <section className="home-section field-notes">
-      <header className="home-section__head"><span>04</span><p>Working field</p></header>
+      <header className="home-section__head"><span>05</span><p>Working field</p></header>
       <div className="field-notes__layout">
         <blockquote>“I don’t need to know everything. I need to know what to ask—and how to turn the answer into something real.”</blockquote>
         <ul>{skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
@@ -148,5 +171,5 @@ export default function HomePage() {
     if (openGraphUrl) openGraphUrl.content = canonicalUrl
   }, [])
 
-  return <><Hero /><Practice /><WorkIndex /><Method /><FieldNotes /><Contact /></>
+  return <><Hero /><Practice /><Education /><WorkIndex /><Method /><FieldNotes /><Contact /></>
 }

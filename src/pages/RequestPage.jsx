@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useAuth } from '../lib/auth.jsx'
-import { api } from '../lib/api.js'
+import { API_BASE, api } from '../lib/api.js'
 import ChatBot from '../components/ChatBot.jsx'
 
 const STATUSES = ['new', 'reviewing', 'in-progress', 'delivered', 'declined']
-const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:8600').replace(/\/+$/, '')
-
 export default function RequestPage() {
   const { id } = useParams()
   const { user, loading } = useAuth()

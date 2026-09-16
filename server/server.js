@@ -18,6 +18,7 @@ import {
   postPortfolioAssistant,
   validatePortfolioGoal,
 } from './chat.js'
+import { confirmVerificationCode, sendVerificationCode } from './verify.js'
 
 const app = express()
 app.use(express.json())
@@ -28,6 +29,8 @@ app.use(
 )
 app.use('/uploads', express.static(UPLOAD_DIR))
 app.get('/health', (req, res) => res.json({ ok: true }))
+app.post('/api/assistant/verify/send', sendVerificationCode)
+app.post('/api/assistant/verify/confirm', confirmVerificationCode)
 app.post('/api/assistant/goal', validatePortfolioGoal)
 app.post('/api/assistant', postPortfolioAssistant)
 
@@ -187,7 +190,7 @@ mongoose
   })
   .then(() => {
     console.log('mongo connected')
-    app.listen(PORT, () => console.log(`api on :${PORT}`))
+    app.listen(PORT, '127.0.0.1', () => console.log(`api on 127.0.0.1:${PORT}`))
   })
   .catch((e) => {
     console.error('mongo connection failed:', e.message)
