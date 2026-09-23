@@ -1645,6 +1645,7 @@ body::before {
 .case-hero__meta { grid-column: 1 / -1; display: flex; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid var(--border); color: var(--text-dim); font: 600 0.63rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.06em; text-transform: uppercase; }
 .case-hero__title { position: relative; align-self: start; padding-top: 44px; }
 .case-hero__title > span { position: absolute; top: 20px; right: 4%; z-index: -1; color: color-mix(in srgb, var(--case-color) 16%, transparent); font: 400 clamp(9rem, 22vw, 20rem)/0.8 "Fraunces", Georgia, serif; }
+.case-hero__logo { position: absolute; top: 20px; right: 4%; z-index: -1; width: clamp(9rem, 22vw, 20rem); height: clamp(9rem, 22vw, 20rem); object-fit: contain; opacity: 0.16; }
 .case-hero__title h1 { max-width: 9ch; font-family: "Fraunces", Georgia, serif; font-size: clamp(4rem, 10vw, 10rem); font-weight: 400; letter-spacing: -0.075em; line-height: 0.8; }
 .case-hero__body { padding-top: 52px; }
 .case-hero__tagline { max-width: 25ch; color: var(--case-color); font-family: "Fraunces", Georgia, serif; font-size: clamp(1.45rem, 2.8vw, 2.35rem); font-style: italic; line-height: 1.15; }

@@ -11,6 +11,7 @@ export const projectCaseStudies = {
     {
       id: 'rabbithole',
       glyph: 'R',
+      logo: '/rabbithole-logo.png',
       color: '#b7ff5e',
       label: 'RabbitHole · MCTOSH',
       index: '01',

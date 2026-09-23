@@ -37,7 +37,9 @@ function CaseHero({ tab }) {
         <span>{tab.category}</span>
       </div>
       <div className="case-hero__title">
-        <span aria-hidden="true">{tab.glyph}</span>
+        {tab.logo
+          ? <img className="case-hero__logo" src={tab.logo} alt="" aria-hidden="true" />
+          : <span aria-hidden="true">{tab.glyph}</span>}
         <h1>{tab.heading}</h1>
       </div>
       <div className="case-hero__body">
