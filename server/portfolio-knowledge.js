@@ -5,8 +5,8 @@ import {
   projects,
   services,
   skills,
-} from '../src/data.js'
-import { projectCaseStudies } from '../src/projectCaseStudies.js'
+} from './src/data.js'
+import { projectCaseStudies } from './src/projectCaseStudies.js'
 
 const clean = (value) => String(value ?? '').replace(/\s+/g, ' ').trim()
 const bounded = (value, limit = 360) => {
