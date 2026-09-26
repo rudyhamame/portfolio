@@ -9,12 +9,14 @@ const backendProxy = {
 export default defineConfig({
   plugins: [react()],
   server: {
+    allowedHosts: true,
     proxy: {
       '/api': backendProxy,
       '/uploads': backendProxy,
     },
   },
   preview: {
+    allowedHosts: true,
     proxy: {
       '/api': backendProxy,
       '/uploads': backendProxy,

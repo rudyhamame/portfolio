@@ -1,175 +1,81 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { profile, education, about, method, skills } from '../data.js'
-import { projectCaseStudies } from '../projectCaseStudies.js'
+import { Link, useNavigate } from 'react-router-dom'
+import { useCharacterPage } from '../lib/useCharacterPage.js'
 
-const disciplines = ['Medicine', 'Ontology', 'Product', 'Engineering']
-
-function Arrow() {
-  return <span aria-hidden="true">↗</span>
-}
-
-function Hero() {
-  return (
-    <section id="top" className="home-hero">
-      <div className="home-hero__index" aria-hidden="true">
-        <span>Portfolio / 2026</span>
-        <span>Toronto / CA</span>
-      </div>
-
-      <div className="home-hero__statement">
-        <p className="kicker">Physician · Systems builder</p>
-        <h1>I build software that <em>knows what it is.</em></h1>
-        <p className="home-hero__lede">
-          Clinical reasoning, original ontologies, and full-stack products—built
-          as one practice of making complex reality legible.
-        </p>
-        <div className="home-hero__actions">
-          <Link className="action-link action-link--solid" to="/projects/rabbithole">
-            Enter the work <Arrow />
-          </Link>
-          <a className="action-link" href={`mailto:${profile.email}`}>
-            Start a conversation
-          </a>
-        </div>
-      </div>
-
-      <figure className="home-portrait">
-        <div className="home-portrait__crop">
-          <img src={profile.photo} alt={`Portrait of ${profile.name}`} />
-        </div>
-        <figcaption>
-          <span>Rudy Hamame</span>
-          <span>Physician / Builder</span>
-        </figcaption>
-      </figure>
-
-      <div className="home-hero__principle">
-        <span className="home-hero__principle-mark">R =</span>
-        <p><strong>Reality before schema.</strong> Define the entity, preserve the evidence, then build the system around what is true.</p>
-      </div>
-    </section>
-  )
-}
-
-function Practice() {
-  return (
-    <section id="about" className="home-section practice">
-      <header className="home-section__head"><span>01</span><p>The practice</p></header>
-      <div className="practice__body">
-        <h2>Medicine taught me to reason. Software gave the reasoning form.</h2>
-        <div className="practice__copy">
-          {about.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-        </div>
-      </div>
-      <div className="practice__disciplines" aria-label="Disciplines">
-        {disciplines.map((discipline, index) => (
-          <div key={discipline}><span>0{index + 1}</span><strong>{discipline}</strong></div>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function WorkIndex() {
-  return (
-    <section id="projects" className="home-section work-index">
-      <header className="home-section__head"><span>03</span><p>Selected systems</p></header>
-      <div className="work-index__intro">
-        <h2>Four products.<br />One way of seeing.</h2>
-        <p>Each project begins by deciding what exists, how it relates, and what must remain invariant. The interface comes after.</p>
-      </div>
-      <div className="work-index__list">
-        {projectCaseStudies.tabs.map((project) => (
-          <Link className={`work-row${project.featured ? ' work-row--featured' : ''}`} key={project.id} to={`/projects/${project.id}`} style={{ '--project-color': project.color }}>
-            <span className="work-row__number">{project.index}</span>
-            <span className="work-row__glyph" aria-hidden="true">{project.glyph}</span>
-            <span className="work-row__identity"><strong>{project.heading}</strong><small>{project.category}</small></span>
-            <span className="work-row__thesis">{project.thesis}</span>
-            <Arrow />
-          </Link>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function Education() {
-  return (
-    <section id="education" className="home-section education">
-      <header className="home-section__head"><span>02</span><p>Medical education</p></header>
-      <article className="education__credential">
-        <div className="education__mark">
-          <img src={education.logo} alt="Latakia University emblem" />
-        </div>
-        <div className="education__identity">
-          <span>Degree / MD</span>
-          <h2>{education.degree}</h2>
-          <p>{education.faculty}</p>
-        </div>
-        <dl className="education__details">
-          <div><dt>Institution</dt><dd>{education.university}<small>({education.formerName})</small></dd></div>
-          <div><dt>Place</dt><dd>{education.location}</dd></div>
-          <div><dt>Period</dt><dd>{education.dates}</dd></div>
-        </dl>
-      </article>
-    </section>
-  )
-}
-
-function Method() {
-  return (
-    <section id="method" className="home-section reasoning">
-      <header className="home-section__head"><span>04</span><p>How I think</p></header>
-      <div className="reasoning__lead"><p>Clinical habits, translated into product architecture.</p><span>Observe → distinguish → model → test</span></div>
-      <div className="reasoning__grid">
-        {method.map((item, index) => (
-          <article key={item.title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{item.title}</h3><p>{item.body}</p></article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function FieldNotes() {
-  return (
-    <section className="home-section field-notes">
-      <header className="home-section__head"><span>05</span><p>Working field</p></header>
-      <div className="field-notes__layout">
-        <blockquote>“I don’t need to know everything. I need to know what to ask—and how to turn the answer into something real.”</blockquote>
-        <ul>{skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
-      </div>
-    </section>
-  )
-}
-
-function Contact() {
-  return (
-    <section id="contact" className="home-contact">
-      <p className="kicker">Have a difficult system?</p>
-      <h2>Bring me the reality.<br /><em>We’ll find its form.</em></h2>
-      <a className="home-contact__email" href={`mailto:${profile.email}`}>{profile.email} <Arrow /></a>
-      <div className="home-contact__links">
-        <a href={profile.github} target="_blank" rel="noreferrer">GitHub <Arrow /></a>
-        {profile.linkedin && !profile.linkedin.includes('your-handle') && (
-          <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
-        )}
-        <a href={profile.resume} target="_blank" rel="noreferrer">Résumé <Arrow /></a>
-        <Link to="/portal">Client portal <Arrow /></Link>
-      </div>
-    </section>
-  )
-}
+// The first page: choose which Rudy to meet. Each card leads to its own page.
+const characters = [
+  {
+    id: 'physician',
+    to: '/physician',
+    number: '01',
+    role: 'Physician',
+    models: 'Modelling patients',
+    line: 'Reasons from evidence to the person in the room.',
+    attributes: ['Clinical reasoning', 'Differential diagnosis', 'Names the uncertainty', 'Patient formulation'],
+    signature: 'Differential diagnosis',
+    glyph: (
+      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M4 34h14l6-16 10 30 8-22 4 8h14" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /><path d="M32 4v8M28 8h8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>
+    ),
+  },
+  {
+    id: 'vibe',
+    to: '/vibe',
+    number: '02',
+    role: 'AI-assisted software engineer',
+    models: 'Modelling ideas',
+    line: 'Builds software that knows what it is.',
+    attributes: ['Full-stack products', 'Streaming and HLS', 'Android and Roku', 'AI pipelines'],
+    signature: 'Reality before schema',
+    glyph: (
+      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M24 44c0-6-8-9-8-19a16 16 0 0 1 32 0c0 10-8 13-8 19zM25 52h14M28 58h8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /><path d="M32 4v4M9 12l3 3M55 12l-3 3M2 26h4M58 26h4" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>
+    ),
+  },
+]
 
 export default function HomePage() {
-  useEffect(() => {
-    document.title = 'Rudy Hamame — Physician & Systems Builder'
-    const canonicalUrl = 'https://portfolio.mctoshs.ca/'
-    const canonical = document.querySelector('link[rel="canonical"]')
-    const openGraphUrl = document.querySelector('meta[property="og:url"]')
-    if (canonical) canonical.href = canonicalUrl
-    if (openGraphUrl) openGraphUrl.content = canonicalUrl
-  }, [])
+  useCharacterPage({ character: '', title: 'Rudy Hamame — One character, two mindsets', path: '/' })
+  const navigate = useNavigate()
 
-  return <><Hero /><Practice /><Education /><WorkIndex /><Method /><FieldNotes /><Contact /></>
+  useEffect(() => {
+    const onKey = (event) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return
+      const pick = characters.find((character) => character.number === event.key.padStart(2, '0'))
+      if (pick) navigate(pick.to)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [navigate])
+
+  return (
+    <section className="character-select" aria-labelledby="character-select-title">
+      <header className="character-select__head">
+        <p className="kicker">Rudy Hamame · Toronto</p>
+        <h1 id="character-select-title">One character.<br />Two mindsets.</h1>
+        <p className="character-select__sub">Modelling patients. Modelling ideas.</p>
+        <p className="character-select__pick">Pick the mindset you want to meet first.</p>
+      </header>
+      <div className="hybrid" role="note">
+        <span className="hybrid__label">Hybrid model</span>
+        <p className="hybrid__statement">
+          Rudy is a hybrid model: <span className="hybrid__formula"><b>Human</b><i aria-hidden="true">+</i><b>AI</b></span>
+        </p>
+      </div>
+      <div className="character-select__grid">
+        {characters.map((character) => (
+          <Link key={character.id} to={character.to} className={`character-card character-card--${character.id}`}>
+            <span className="character-card__number">Mindset {character.number}</span>
+            <span className="character-card__glyph">{character.glyph}</span>
+            <strong className="character-card__role">{character.role}</strong>
+            <span className="character-card__model">{character.models}</span>
+            <span className="character-card__line">{character.line}</span>
+            <ul className="character-card__attributes" aria-label="Attributes">
+              {character.attributes.map((attribute) => <li key={attribute}>{attribute}</li>)}
+            </ul>
+            <span className="character-card__signature"><small>Signature</small>{character.signature}</span>
+            <span className="character-card__enter">Choose <span aria-hidden="true">→</span><kbd>{Number(character.number)}</kbd></span>
+          </Link>
+        ))}
+      </div>
+    </section>
+  )
 }

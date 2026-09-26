@@ -2,7 +2,7 @@
 
 export const profile = {
   name: 'Rudy Hamame',
-  title: 'Physician & Vibe Coder',
+  title: 'Physician & AI-assisted Software Engineer',
   tagline:
     'I build medical and non-medical systems through structured thinking, rapid experimentation, and AI-assisted development. I trust my reasoning, my concepts, and my art—and AI gives me the leverage to turn them into something real.',
   location: 'Remote',
@@ -27,7 +27,7 @@ export const education = {
 }
 
 export const about = [
-  `I'm a physician and a vibe coder. My clinical training shapes how I
+  `I'm a physician and an AI-assisted software engineer. My clinical training shapes how I
    build: RabbitHole, my main project, is a clinical reasoning model with an
    original ontology for how a patient instance should be conceptualized,
    implemented as a full-stack app backed by a fleet of AI and language

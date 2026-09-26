@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
 import HomePage from './pages/HomePage.jsx'
+import PhysicianPage from './pages/PhysicianPage.jsx'
+import VibePage from './pages/VibePage.jsx'
 import ProjectsPage from './pages/ProjectsPage.jsx'
 import PortalPage from './pages/PortalPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
@@ -35,6 +37,10 @@ export default function App() {
         <main id="main-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/physician" element={<PhysicianPage />} />
+            <Route path="/human" element={<Navigate to="/physician" replace />} />
+            <Route path="/vibe" element={<VibePage />} />
+            <Route path="/idea" element={<Navigate to="/vibe" replace />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/projects/:tab" element={<ProjectsPage />} />
             <Route path="/portal" element={<PortalPage />} />

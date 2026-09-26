@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://portfolio.mctoshs.ca/</loc></url>
+  <url><loc>https://portfolio.mctoshs.ca/physician</loc></url>
+  <url><loc>https://portfolio.mctoshs.ca/vibe</loc></url>
   <url><loc>https://portfolio.mctoshs.ca/projects/rabbithole</loc></url>
   <url><loc>https://portfolio.mctoshs.ca/projects/dj-khalil</loc></url>
   <url><loc>https://portfolio.mctoshs.ca/projects/noga-planner</loc></url>
