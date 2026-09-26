@@ -18,7 +18,7 @@ const pages = {
       { id: 'contact', label: 'Contact' },
     ],
   },
-  vibe: {
+  softwareEngineer: {
     label: 'AI-assisted software engineer',
     links: [
       { id: 'projects', label: 'Work' },
@@ -31,7 +31,7 @@ const pages = {
 
 export default function Nav() {
   const { pathname, hash } = useLocation()
-  const key = pathname.startsWith('/physician') ? 'physician' : pathname.startsWith('/vibe') ? 'vibe' : ''
+  const key = pathname.startsWith('/physician') ? 'physician' : pathname.startsWith('/software-engineer') ? 'softwareEngineer' : ''
   const page = pages[key]
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('')
@@ -93,7 +93,7 @@ export default function Nav() {
           ) : (
             <>
               <Link className="snav__link" to="/physician">Physician</Link>
-              <Link className="snav__link" to="/vibe">AI-assisted software engineer</Link>
+              <Link className="snav__link" to="/software-engineer">AI-assisted software engineer</Link>
             </>
           )}
           <Link className="snav__cta" to="/portal">Client portal</Link>

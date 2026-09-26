@@ -18,8 +18,8 @@ const characters = [
     ),
   },
   {
-    id: 'vibe',
-    to: '/vibe',
+    id: 'software-engineer',
+    to: '/software-engineer',
     number: '02',
     role: 'AI-assisted software engineer',
     models: 'Modelling ideas',

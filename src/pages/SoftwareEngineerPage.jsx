@@ -20,7 +20,7 @@ const builderMethod = method.filter((item) => item.title.startsWith('Define the 
 const disciplines = ['Ontology', 'Product', 'Engineering', 'Infrastructure']
 
 export default function VibePage() {
-  useCharacterPage({ character: 'vibe', title: 'Rudy Hamame — AI-assisted software engineer', path: '/vibe' })
+  useCharacterPage({ character: 'software-engineer', title: 'Rudy Hamame — AI-assisted software engineer', path: '/software-engineer' })
   return (
     <>
       <Hero content={hero} />

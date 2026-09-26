@@ -1710,9 +1710,9 @@ body::before {
 
 /* ---- Characters: accent per character and the character-select page ---- */
 :root[data-character="physician"] { --accent: #7dd3fc; --accent-dim: #38bdf8; }
-:root[data-character="vibe"] { --accent: #fbbf24; --accent-dim: #f59e0b; }
+:root[data-character="software-engineer"] { --accent: #fbbf24; --accent-dim: #f59e0b; }
 :root[data-character="physician"] .action-link--solid:hover { background: #bae6fd; }
-:root[data-character="vibe"] .action-link--solid:hover { background: #fde68a; }
+:root[data-character="software-engineer"] .action-link--solid:hover { background: #fde68a; }
 
 .character-select { display: flex; flex-direction: column; justify-content: center; gap: clamp(28px, 5vw, 56px); min-height: calc(100vh - 120px); padding: clamp(28px, 6vw, 72px) clamp(16px, 4vw, 56px); }
 .character-select__head { max-width: 760px; }
@@ -1722,7 +1722,7 @@ body::before {
 
 .character-card { --card-accent: var(--accent); position: relative; display: flex; flex-direction: column; gap: 14px; padding: clamp(20px, 3vw, 36px); border: 1px solid var(--border); background: linear-gradient(160deg, var(--bg-elev), var(--bg)); overflow: hidden; transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease; }
 .character-card--physician { --card-accent: #7dd3fc; }
-.character-card--vibe { --card-accent: #fbbf24; }
+.character-card--software-engineer { --card-accent: #fbbf24; }
 .character-card::before { position: absolute; inset: 0; background: radial-gradient(circle at 85% 0%, color-mix(in srgb, var(--card-accent) 18%, transparent), transparent 55%); content: ''; opacity: 0.6; transition: opacity 200ms ease; pointer-events: none; }
 .character-card:hover, .character-card:focus-visible { border-color: var(--card-accent); transform: translateY(-4px); box-shadow: 0 18px 50px color-mix(in srgb, var(--card-accent) 16%, transparent); outline: none; }
 .character-card:hover::before, .character-card:focus-visible::before { opacity: 1; }
