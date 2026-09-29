@@ -1749,7 +1749,7 @@ body::before {
   .character-card:hover, .character-card:focus-visible { transform: none; }
 }
 
-.character-select__head .character-select__sub { margin-bottom: 6px; color: var(--text); font-size: clamp(1.2rem, 2.6vw, 1.8rem); font-weight: 700; letter-spacing: -0.01em; }
+.character-select__head .character-select__sub { margin-bottom: 6px; color: var(--text); font-size: clamp(1.2rem, 2.6vw, 1.8rem); font-weight: 700; letter-spacing: -0.01em;  text-align: center; }
 
 .character-card__model { margin-top: -8px; color: var(--card-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
 
