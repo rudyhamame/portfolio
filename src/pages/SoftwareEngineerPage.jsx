@@ -3,7 +3,6 @@ import { useCharacterPage } from '../lib/useCharacterPage.js'
 import { Hero, Practice, WorkIndex, Method, FieldNotes, Contact } from './homeSections.jsx'
 
 const hero = {
-  visual: 'cpu',
   index: 'One character / Mindset 02',
   kicker: 'AI-assisted software engineer',
   headline: <>I build software that <em>knows what it is.</em></>,
