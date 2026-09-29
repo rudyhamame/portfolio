@@ -24,6 +24,7 @@ const pages = {
       { id: 'projects', label: 'Work' },
       { id: 'about', label: 'Practice' },
       { id: 'method', label: 'Thinking' },
+      { id: 'bugs', label: 'Bug log', to: '/software-engineer/bugs' },
       { id: 'contact', label: 'Contact' },
     ],
   },
@@ -81,14 +82,18 @@ export default function Nav() {
         <nav className="snav__links" id="snav-menu" aria-label="Main navigation">
           {page ? (
             page.links.map((link) => (
-              <a
-                key={link.id}
-                href={`/${key}#${link.id}`}
-                className={`snav__link${active === link.id ? ' is-active' : ''}`}
-                aria-current={active === link.id ? 'location' : undefined}
-              >
-                {link.label}
-              </a>
+              link.to ? (
+                <Link key={link.id} to={link.to} className="snav__link">{link.label}</Link>
+              ) : (
+                <a
+                  key={link.id}
+                  href={`/${key}#${link.id}`}
+                  className={`snav__link${active === link.id ? ' is-active' : ''}`}
+                  aria-current={active === link.id ? 'location' : undefined}
+                >
+                  {link.label}
+                </a>
+              )
             ))
           ) : (
             <>

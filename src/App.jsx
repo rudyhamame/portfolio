@@ -4,6 +4,7 @@ import Nav from './components/Nav.jsx'
 import HomePage from './pages/HomePage.jsx'
 import PhysicianPage from './pages/PhysicianPage.jsx'
 import SoftwareEngineerPage from './pages/SoftwareEngineerPage.jsx'
+import BugsPage from './pages/BugsPage.jsx'
 import ProjectsPage from './pages/ProjectsPage.jsx'
 import PortalPage from './pages/PortalPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
@@ -40,6 +41,8 @@ export default function App() {
             <Route path="/physician" element={<PhysicianPage />} />
             <Route path="/human" element={<Navigate to="/physician" replace />} />
             <Route path="/software-engineer" element={<SoftwareEngineerPage />} />
+            <Route path="/software-engineer/bugs" element={<BugsPage />} />
+            <Route path="/bugs" element={<Navigate to="/software-engineer/bugs" replace />} />
             <Route path="/vibe" element={<Navigate to="/software-engineer" replace />} />
             <Route path="/idea" element={<Navigate to="/software-engineer" replace />} />
             <Route path="/projects" element={<ProjectsPage />} />

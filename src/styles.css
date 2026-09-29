@@ -1807,3 +1807,27 @@ body::before {
 .hybrid__formula b:first-child { color: #7dd3fc; }
 .hybrid__formula b:last-child { color: #fbbf24; }
 .hybrid__formula i { color: var(--text-dim); font-style: normal; font-weight: 400; }
+
+/* Mindset 02 CPU artwork */
+.home-portrait--cpu { width: min(calc(100% - var(--nav-inset)), 470px); }
+.home-portrait--cpu::before { border-color: var(--accent); }
+.cpu-art { position: relative; display: grid; place-items: center; aspect-ratio: 0.9; overflow: hidden; background: radial-gradient(ellipse at 50% 48%, rgba(251, 191, 36, .11), transparent 56%); }
+.cpu-art::before, .cpu-art::after { position: absolute; content: \"\"; border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent); border-radius: 50%; transform: rotate(-28deg); }
+.cpu-art::before { width: 78%; height: 30%; }
+.cpu-art::after { width: 94%; height: 43%; }
+.cpu-art svg { position: relative; z-index: 1; width: 100%; height: 100%; overflow: visible; }
+.cpu-core { transform-origin: 260px 280px; animation: cpu-hover 7s ease-in-out infinite; }
+.cpu-orbit { transform-origin: 260px 270px; animation: cpu-spin 38s linear infinite; }
+.cpu-traces { animation: cpu-pulse 4s ease-in-out infinite alternate; }
+@keyframes cpu-hover { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-8px) rotate(1deg); } }
+@keyframes cpu-spin { to { transform: rotate(360deg); } }
+@keyframes cpu-pulse { to { stroke-opacity: .82; } }
+.bugs-log__table-wrap { overflow-x: auto; border: 1px solid var(--border); }
+.bugs-log__table { width: 100%; border-collapse: collapse; font-size: 0.82rem; line-height: 1.55; }
+.bugs-log__table th, .bugs-log__table td { padding: 16px 20px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.bugs-log__table th { color: var(--text-dim); font: 700 0.62rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+.bugs-log__table td:first-child { color: var(--text); font-weight: 600; white-space: nowrap; }
+.bugs-log__table td { color: var(--text-dim); }
+.bugs-log__table tbody tr:last-child td { border-bottom: 0; }
+@media (max-width: 760px) { .bugs-log__table { font-size: 0.76rem; } .bugs-log__table th, .bugs-log__table td { padding: 12px 14px; } }
+@media (prefers-reduced-motion: reduce) { .cpu-core, .cpu-orbit, .cpu-traces { animation: none; } }
