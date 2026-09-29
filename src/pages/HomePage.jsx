@@ -46,7 +46,7 @@ export default function HomePage() {
   return (
     <section className="character-select" aria-labelledby="character-select-title">
       <header className="character-select__head">
-        <p className="kicker">Rudy Hamame · Toronto</p>
+        <p className="kicker">Rudy Hamame · Hybrid Model</p>
         <h1 id="character-select-title">Rudy is one character<br />of two mindsets,</h1>
         <p className="character-select__sub">modelling representations and implementing them on</p>
         <p className="character-select__destinations"><strong>Patients</strong><span>and</span><strong>Computers</strong></p>
