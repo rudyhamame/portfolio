@@ -1750,6 +1750,12 @@ body::before {
 }
 
 .character-select__head .character-select__sub { margin-bottom: 6px; color: var(--text); font-size: clamp(1.2rem, 2.6vw, 1.8rem); font-weight: 700; letter-spacing: -0.01em;  text-align: center; }
+.character-select__destinations { display: flex; justify-content: center; align-items: baseline; gap: .55em; margin: 8px 0 18px; font-size: clamp(1.2rem, 2.6vw, 1.8rem); }
+.character-select__destinations strong { font-weight: 700; }
+.character-select__destinations strong:first-child { color: #7dd3fc; }
+.character-select__destinations strong:last-child { color: #fbbf24; }
+.character-select__destinations span { color: var(--text-dim); }
+
 
 .character-card__model { margin-top: -8px; color: var(--card-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
 
