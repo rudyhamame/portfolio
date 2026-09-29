@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCharacterPage } from '../lib/useCharacterPage.js'
-import { CpuArtwork } from './homeSections.jsx'
 
 // The first page: choose which Rudy to meet. Each card leads to its own page.
 const characters = [
@@ -26,7 +25,7 @@ const characters = [
     line: 'Builds software that knows what it is.',
     attributes: ['Full-stack products', 'Streaming and HLS', 'Android and Roku', 'AI pipelines'],
     signature: 'Reality before schema',
-    glyph: <CpuArtwork />,
+    glyph: <img src="/cpu-package-3d.png" alt="" draggable="false" />,
   },
 ]
 
