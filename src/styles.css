@@ -1780,6 +1780,10 @@ body::before {
 .snav__toggle span::before { top: -5px; left: 0; margin-left: 0; }
 .snav__toggle span::after { top: 5px; left: 0; margin-left: 0; }
 .snav[data-open="true"] .snav__toggle span { background: transparent; }
+.character-select__destinations { display: flex; align-items: start; gap: clamp(42px, 9vw, 120px); margin: 12px 0 18px; }
+.character-select__destination { display: flex; min-width: 105px; flex-direction: column; align-items: center; gap: 2px; color: var(--accent); }
+.character-select__destination > span { font-size: 1.45rem; line-height: 1; }
+.character-select__destination strong { color: var(--text); font-size: clamp(1rem, 1.8vw, 1.2rem); }
 .snav[data-open="true"] .snav__toggle span::before { transform: translateY(5px) rotate(45deg); }
 .snav[data-open="true"] .snav__toggle span::after { transform: translateY(-5px) rotate(-45deg); }
 .home-section, .home-contact, .case-section { scroll-margin-top: 104px; }

@@ -51,7 +51,11 @@ export default function HomePage() {
       <header className="character-select__head">
         <p className="kicker">Rudy Hamame · Toronto</p>
         <h1 id="character-select-title">One character.<br />Two mindsets.</h1>
-        <p className="character-select__sub">Modelling patients. Modelling ideas.</p>
+        <p className="character-select__sub">Modelling representations and implementing them on</p>
+        <div className="character-select__destinations" aria-label="Implementing representations on patients and computers">
+          <span className="character-select__destination"><span aria-hidden="true">↓</span><strong>Patients</strong></span>
+          <span className="character-select__destination"><span aria-hidden="true">↓</span><strong>Computers</strong></span>
+        </div>
         <p className="character-select__pick">Pick the mindset you want to meet first.</p>
       </header>
       <div className="hybrid" role="note">
