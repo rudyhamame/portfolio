@@ -6,7 +6,7 @@ export function Arrow() {
   return <span aria-hidden="true">↗</span>
 }
 
-function CpuArtwork() {
+export function CpuArtwork() {
   return (
     <div className="cpu-art" role="img" aria-label="A three dimensional processor with glowing circuit traces">
       <svg viewBox="0 0 520 560" aria-hidden="true">

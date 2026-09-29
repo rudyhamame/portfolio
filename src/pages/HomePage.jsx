@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCharacterPage } from '../lib/useCharacterPage.js'
+import { CpuArtwork } from './homeSections.jsx'
 
 // The first page: choose which Rudy to meet. Each card leads to its own page.
 const characters = [
@@ -11,11 +12,10 @@ const characters = [
     role: 'Physician',
     models: 'Modelling patients',
     line: 'Reasons from evidence to the person in the room.',
+    quote: <>I reason through the patient-in-mind <em>to reach the patient-in-reality.</em></>,
     attributes: ['Clinical reasoning', 'Differential diagnosis', 'Names the uncertainty', 'Patient formulation'],
     signature: 'Differential diagnosis',
-    glyph: (
-      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M4 34h14l6-16 10 30 8-22 4 8h14" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /><path d="M32 4v8M28 8h8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>
-    ),
+    glyph: <img src="/physician-brain-3d.png" alt="" draggable="false" />,
   },
   {
     id: 'software-engineer',
@@ -26,9 +26,7 @@ const characters = [
     line: 'Builds software that knows what it is.',
     attributes: ['Full-stack products', 'Streaming and HLS', 'Android and Roku', 'AI pipelines'],
     signature: 'Reality before schema',
-    glyph: (
-      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M24 44c0-6-8-9-8-19a16 16 0 0 1 32 0c0 10-8 13-8 19zM25 52h14M28 58h8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /><path d="M32 4v4M9 12l3 3M55 12l-3 3M2 26h4M58 26h4" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>
-    ),
+    glyph: <CpuArtwork />,
   },
 ]
 
@@ -72,6 +70,7 @@ export default function HomePage() {
             <strong className="character-card__role">{character.role}</strong>
             <span className="character-card__model">{character.models}</span>
             <span className="character-card__line">{character.line}</span>
+            {character.quote && <span className="character-card__quote">{character.quote}</span>}
             <ul className="character-card__attributes" aria-label="Attributes">
               {character.attributes.map((attribute) => <li key={attribute}>{attribute}</li>)}
             </ul>
