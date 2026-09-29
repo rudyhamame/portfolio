@@ -47,8 +47,8 @@ export default function HomePage() {
     <section className="character-select" aria-labelledby="character-select-title">
       <header className="character-select__head">
         <p className="kicker">Rudy Hamame · Toronto</p>
-        <h1 id="character-select-title">One character,<br />Two mindsets,</h1>
-        <p className="character-select__sub">Modelling representations and implementing them on</p>
+        <h1 id="character-select-title">Rudy is one character<br />of two mindsets,</h1>
+        <p className="character-select__sub">modelling representations and implementing them on</p>
         <div className="character-select__destinations" aria-label="Implementing representations on patients and computers">
           <span className="character-select__destination"><span aria-hidden="true">↓</span><strong>Patients</strong></span>
           <span className="character-select__destination"><span aria-hidden="true">↓</span><strong>Computers</strong></span>
