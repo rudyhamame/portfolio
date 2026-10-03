@@ -7,7 +7,7 @@ export default function PortalPage() {
   const { user, login, signup } = useAuth()
   const navigate = useNavigate()
   const [mode, setMode] = useState('login')
-  const [form, setForm] = useState({ name: '', email: '', password: '' })
+  const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' })
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -18,6 +18,10 @@ export default function PortalPage() {
   async function submit(e) {
     e.preventDefault()
     setError('')
+    if (mode === 'signup' && form.password !== form.confirm) {
+      setError('Passwords do not match')
+      return
+    }
     setBusy(true)
     try {
       if (mode === 'login') await login(form.email, form.password)
@@ -85,6 +89,18 @@ export default function PortalPage() {
             required
           />
         </label>
+        {mode === 'signup' && (
+          <label className="form__field">
+            <span>Confirm password</span>
+            <input
+              type="password"
+              value={form.confirm}
+              onChange={set('confirm')}
+              minLength={8}
+              required
+            />
+          </label>
+        )}
         {error && <p className="chat__error">{error}</p>}
         <button className="btn btn--primary" disabled={busy}>
           {mode === 'login' ? 'Sign in' : 'Create account'}

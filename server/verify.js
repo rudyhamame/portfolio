@@ -24,14 +24,13 @@ export async function sendVerificationCode(req, res) {
   if (!isValidEmail(email)) return res.status(400).json({ error: 'A valid email is required.' })
 
   const code = String(crypto.randomInt(100000, 1000000))
-  pendingCodes.set(email, { code, expiresAt: Date.now() + CODE_TTL_MS, name, attempts: 0 })
-
   try {
     await sendVerificationEmail(name, email, code)
   } catch (err) {
     console.error('verification email error:', err.message)
     return res.status(502).json({ error: 'Could not send the verification email right now.' })
   }
+  pendingCodes.set(email, { code, expiresAt: Date.now() + CODE_TTL_MS, name, attempts: 0 })
   res.json({ sent: true })
 }
 

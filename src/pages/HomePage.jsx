@@ -47,17 +47,11 @@ export default function HomePage() {
     <section className="character-select" aria-labelledby="character-select-title">
       <header className="character-select__head">
         <p className="kicker">Rudy Hamame · Hybrid Model</p>
-        <h1 id="character-select-title">Rudy is one character<br />of two mindsets,</h1>
+        <h1 id="character-select-title">Rudy is a hybrid character<br />of HUMAN and AI model</h1>
         <p className="character-select__sub">modelling representations and implementing them on</p>
         <p className="character-select__destinations"><strong>Patients</strong><span>and</span><strong>Computers</strong></p>
         <p className="character-select__pick">Pick the mindset you want to meet first.</p>
       </header>
-      <div className="hybrid" role="note">
-        <span className="hybrid__label">Hybrid model</span>
-        <p className="hybrid__statement">
-          Rudy is a hybrid model: <span className="hybrid__formula"><b>Human</b><i aria-hidden="true">+</i><b>AI</b></span>
-        </p>
-      </div>
       <div className="character-select__grid">
         {characters.map((character) => (
           <Link key={character.id} to={character.to} className={`character-card character-card--${character.id}`}>
@@ -74,6 +68,27 @@ export default function HomePage() {
             <span className="character-card__enter">Choose <span aria-hidden="true">→</span><kbd>{Number(character.number)}</kbd></span>
           </Link>
         ))}
+      </div>
+      <div className="mindset-integration">
+        <div className="mindset-integration__bridge" aria-hidden="true">
+          <span /><span />
+        </div>
+        <Link to="/projects/rabbithole" className="rabbithole-card" aria-labelledby="rabbithole-card-title">
+          <div className="rabbithole-card__body">
+            <p className="rabbithole-card__origin"><span>Mindset 01</span><b aria-hidden="true">+</b><span>Mindset 02</span><b aria-hidden="true">→</b><strong>One integrated project</strong></p>
+            <h2 id="rabbithole-card-title">RabbitHole</h2>
+            <p className="rabbithole-card__thesis">Where clinical reasoning and software engineering become one system.</p>
+            <p className="rabbithole-card__description">RabbitHole results from the integration of both mindsets: the physician models patient reality, evidence, and uncertainty; the software engineer turns that model into a working clinical reasoning environment.</p>
+            <ul className="rabbithole-card__attributes" aria-label="RabbitHole disciplines">
+              <li>Clinical reasoning</li><li>Original ontology</li><li>Full-stack engineering</li><li>AI pipelines</li>
+            </ul>
+            <span className="rabbithole-card__enter">Explore RabbitHole <span aria-hidden="true">↗</span></span>
+          </div>
+          <div className="rabbithole-card__art" aria-hidden="true">
+            <img src="/rabbithole-logo.png" alt="" loading="lazy" decoding="async" />
+            <span>Medicine × Engineering</span>
+          </div>
+        </Link>
       </div>
     </section>
   )

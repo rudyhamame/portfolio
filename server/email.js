@@ -5,8 +5,7 @@ export async function sendVerificationEmail(name, email, code) {
   const senderEmail = process.env.EMAIL_FROM_ADDRESS?.trim()
 
   if (!apiKey || !senderEmail) {
-    console.warn(`Verification email skipped (BREVO_API_KEY/EMAIL_FROM_ADDRESS missing). Code for ${email}: ${code}`)
-    return
+    throw new Error('Verification email is not configured (BREVO_API_KEY/EMAIL_FROM_ADDRESS missing).')
   }
 
   const response = await fetch(BREVO_TRANSACTIONAL_EMAIL_URL, {

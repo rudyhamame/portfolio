@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import ScrollBackground from './components/ScrollBackground.jsx'
 import Nav from './components/Nav.jsx'
 import HomePage from './pages/HomePage.jsx'
 import PhysicianPage from './pages/PhysicianPage.jsx'
@@ -34,6 +35,7 @@ export default function App() {
     <AuthProvider>
       <div className="page">
         <ScrollManager />
+        <ScrollBackground />
         <Nav />
         <main id="main-content">
           <Routes>
